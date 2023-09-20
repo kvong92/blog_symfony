@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Product{% endblock %}
+
+{% block body %}
+
+    <h1>Delete Product</h1>
+    {{ include('tags/_form.html.twig', {
+        form: form,
+        'button_label':'Delete'|trans,
+    }, with_context = false) }}
+
+{% endblock %}
