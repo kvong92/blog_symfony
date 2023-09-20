@@ -1,0 +1,11 @@
+front_homepage:
+  path: /
+  controller: App\Controller\HomepageController::index
+
+login:
+  path: /login
+  controller: App\Controller\LoginController::index
+
+register:
+  path: /register
+  controller: App\Controller\RegistrationController::register
