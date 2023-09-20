@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        table, td, th {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        td {
+            padding: 5px;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}Product list{% endblock %}
+
+{% block body %}
+    <h1>Tags list</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for tag in tag %}
+            <tr>
+                <td>{{ tag.id }}</td>
+                <td>{{ tag.name }}</td>
+                <td><a href="{{ path('app_tags_edit', {'id': tag.id}) }}">edit</a></td>
+                <td><a href="{{ path('app_tags_delete', {'id': tag.id}) }}">delete</a></td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <td><a href="{{ path('app_tags_new') }}">New Tag</a></td>
+
+{% endblock %}
