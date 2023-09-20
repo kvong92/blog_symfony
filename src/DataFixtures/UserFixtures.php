@@ -19,13 +19,10 @@ class UserFixtures extends Fixture
     {
 
         $user = new User();
-        $user->setName('john doe');
+        $user->setFullname('john doe');
         $user->setEmail('john.doe@email.com');
         $user->setRoles(['ROLE_USER']);
-
-        $date = date('Y-m-d H:i:s');
-        $createdAt = new \DateTimeImmutable($date);
-        $user->setCreatedAt($createdAt);
+        $user->setShowFullname(0);
 
         $password = $this->hasher->hashPassword($user, '1234');
         $user->setPassword($password);
