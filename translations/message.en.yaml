@@ -1,6 +1,10 @@
-homepage: Home
-login: Login
-register: Register
-logout: Logout
-password: Password
-email: Email
+Homepage: Homepage
+Login: Login
+Register: Register
+Logout: Logout
+Password: Password
+Email: Email
+Full Name: Full Name
+Sign in: Sign in
+Sign up: Sign up
+Back to homepage: Back to homepage

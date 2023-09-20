@@ -19,6 +19,8 @@
         'label': 'Password'|trans
     }) }}
 
-    <button type="submit" class="btn">Register</button>
+    <button type="submit" class="btn">{{ 'Register'|trans }}</button>
     {{ form_end(registrationForm) }}
+    <a href="{{ path('blog') }}">{{ 'Back to homepage'|trans }}</a>
+    <a href="{{ path('login') }}">{{ 'Login'|trans }}</a>
 {% endblock %}
