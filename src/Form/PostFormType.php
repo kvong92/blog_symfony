@@ -21,7 +21,7 @@ class PostFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        //dd($this->tagRepository->findAllTags());
+        ($this->tagRepository->findAllTags());
 
         $tags = $this->tagRepository->findAllTags();
 
@@ -31,17 +31,17 @@ class PostFormType extends AbstractType
             ->add('content')
             ->add('slug')
             ->add('imageFile')
-            ->add('tags', ChoiceType::class, [
-                'choices'=> $tags,
-                'multiple' => true,
-                'expanded' => true,
-                'choice_label' => function (Tag $tag) {
-                    return $tag->getName();
-                },
-                'choice_value' => function (Tag $tag) {
-                    return $tag->getId();
-                }
-            ])
+            #->add('tags', ChoiceType::class, [
+            #    'choices' => $tags,
+            #    'multiple' => true,
+            #    'expanded' => true,
+            #    'choice_label' => function (Tag $tag) {
+            #        return $tag->getName();
+            #    },
+            #    'choice_value' => function (Tag $tag) {
+            #        return $tag->getId();
+            #    }
+            #])
         ;
     }
 
