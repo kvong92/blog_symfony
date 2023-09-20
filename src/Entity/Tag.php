@@ -18,12 +18,12 @@ class Tag
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'tag_id')]
-    private Collection $posts;
+    #[ORM\ManyToMany(targetEntity: Post::class, inversedBy: 'tags')]
+    private Collection $Posts;
 
     public function __construct()
     {
-        $this->posts = new ArrayCollection();
+        $this->Posts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -36,7 +36,7 @@ class Tag
         return $this->name;
     }
 
-    public function setName(string $name): static
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -48,24 +48,21 @@ class Tag
      */
     public function getPosts(): Collection
     {
-        return $this->posts;
+        return $this->Posts;
     }
 
-    public function addPost(Post $post): static
+    public function addPost(Post $post): self
     {
-        if (!$this->posts->contains($post)) {
-            $this->posts->add($post);
-            $post->addTagId($this);
+        if (!$this->Posts->contains($post)) {
+            $this->Posts->add($post);
         }
 
         return $this;
     }
 
-    public function removePost(Post $post): static
+    public function removePost(Post $post): self
     {
-        if ($this->posts->removeElement($post)) {
-            $post->removeTagId($this);
-        }
+        $this->Posts->removeElement($post);
 
         return $this;
     }

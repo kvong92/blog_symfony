@@ -13,35 +13,37 @@ class Post
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\ManyToOne(inversedBy: 'posts')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user_id = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $summary = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $published_date = null;
+    private ?\DateTimeInterface $publishedAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'posts')]
-    private Collection $tag_id;
+    #[ORM\ManyToOne(inversedBy: 'posts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $author = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $slug = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $imageFile = null;
+
+    #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'Posts')]
+    private Collection $tags;
 
     public function __construct()
     {
-        $this->tag_id = new ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -54,21 +56,9 @@ class Post
         return $this->title;
     }
 
-    public function setTitle(string $title): static
+    public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getUserId(): ?User
-    {
-        return $this->user_id;
-    }
-
-    public function setUserId(?User $user_id): static
-    {
-        $this->user_id = $user_id;
 
         return $this;
     }
@@ -78,7 +68,7 @@ class Post
         return $this->summary;
     }
 
-    public function setSummary(string $summary): static
+    public function setSummary(string $summary): self
     {
         $this->summary = $summary;
 
@@ -90,33 +80,57 @@ class Post
         return $this->content;
     }
 
-    public function setContent(string $content): static
+    public function setContent(string $content): self
     {
         $this->content = $content;
 
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getPublishedAt(): ?\DateTimeInterface
     {
-        return $this->image;
+        return $this->publishedAt;
     }
 
-    public function setImage(string $image): static
+    public function setPublishedAt(\DateTimeInterface $publishedAt): self
     {
-        $this->image = $image;
+        $this->publishedAt = $publishedAt;
 
         return $this;
     }
 
-    public function getPublishedDate(): ?\DateTimeInterface
+    public function getAuthor(): ?User
     {
-        return $this->published_date;
+        return $this->author;
     }
 
-    public function setPublishedDate(\DateTimeInterface $published_date): static
+    public function setAuthor(?User $author): self
     {
-        $this->published_date = $published_date;
+        $this->author = $author;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getImageFile(): ?string
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(string $imageFile): self
+    {
+        $this->imageFile = $imageFile;
 
         return $this;
     }
@@ -124,23 +138,26 @@ class Post
     /**
      * @return Collection<int, Tag>
      */
-    public function getTagId(): Collection
+    public function getTags(): Collection
     {
-        return $this->tag_id;
+        return $this->tags;
     }
 
-    public function addTagId(Tag $tagId): static
+    public function addTag(Tag $tag): self
     {
-        if (!$this->tag_id->contains($tagId)) {
-            $this->tag_id->add($tagId);
+        if (!$this->tags->contains($tag)) {
+            $this->tags->add($tag);
+            $tag->addPost($this);
         }
 
         return $this;
     }
 
-    public function removeTagId(Tag $tagId): static
+    public function removeTag(Tag $tag): self
     {
-        $this->tag_id->removeElement($tagId);
+        if ($this->tags->removeElement($tag)) {
+            $tag->removePost($this);
+        }
 
         return $this;
     }
