@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 use App\Entity\Post;
+use App\Entity\Tag;
 use App\Form\PostFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,7 +24,6 @@ class PostController extends AbstractController
         if($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')) {
             $user = $this->getUser();
             $post->setAuthor($user);
-            $post->addTag();
 
             if($form->isSubmitted() && $form->isValid()){
                 $entityManager->persist($post);
