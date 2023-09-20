@@ -3,6 +3,7 @@
 namespace App\Controller;
 use App\Entity\Post;
 use App\Form\PostFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,22 +11,27 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class PostController extends AbstractController
 {
-
-    public function new(Request $request): Response
+    #[Route('/newpost', 'new_post')]
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        // creates a task object and initializes some data for this example
         $post = new Post();
-        //$post->setAuthor($this->getUser());
 
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        #print($user->getId());
-        //dd($user);
-        //die(':)');
+        $form = $this->createForm(PostFormType::class, $post);
 
-        $form = $this ->createForm(PostFormType::class, $post);
+        $form->handleRequest($request);
 
-        return $this->render('post/index.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        if($this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY')) {
+            $user = $this->getUser();
+            $post->setAuthor($user);
+            $post->addTag();
+
+            if($form->isSubmitted() && $form->isValid()){
+                $entityManager->persist($post);
+                $entityManager->flush();
+                return $this->redirectToRoute('app_homepage');
+            }
+        }
+
+        return $this->render('post/index.html.twig', ['form' => $form->createView()]);
     }
 }
