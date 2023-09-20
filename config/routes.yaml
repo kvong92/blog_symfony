@@ -1,15 +1,30 @@
+# config/routes.yaml
+
 controllers:
     resource:
         path: ../src/Controller/
         namespace: App\Controller
-    type: attribute
+    type: annotation
 
 front:
     resource: 'routes/front.yaml'
-    prefix: /{_locale}
+    prefix: /{_locale}/
     requirements:
         _locale: '%app_locales%'
 
 app_logout:
     path: /logout
     methods: GET
+
+#app_homepage:
+#    path: /{_locale}
+#    controller: App\Controller\HomepageController::index
+
+homepage:
+    path: /{_locale}
+    requirements:
+        _locale: '%app_locales%'
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    defaults:
+        template: /homepage/index.html.twig
+        _locale: '%locale%'

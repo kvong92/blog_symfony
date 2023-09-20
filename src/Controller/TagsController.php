@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 #[Route('/tags')]
 class TagsController extends AbstractController
 {
-    #[Route('/list', name: 'app_tags_list', methods: ['GET'])]
+    #[Route('/list', name: 'app_tags_list', methods: ['GET'], locale: 'en')]
     public function index(TagRepository $tagRepository): Response
     {
         dump($tagRepository->findAll());
