@@ -65,4 +65,9 @@ class Tag
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->name; // This will display the tag name in association fields
+    }
 }

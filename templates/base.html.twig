@@ -13,6 +13,10 @@
         {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="container body-container">
+            {% include '/components/multilanguage.html.twig' %}
+
+            {% block body %}{% endblock %}
+        </div>
     </body>
 </html>

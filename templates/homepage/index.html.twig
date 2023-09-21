@@ -1,7 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomepageController!{% endblock %}
+{% block body_id 'homepage' %}
+
+{% block header %}{% endblock %}
 
 {% block body %}
-    <a href="/logout">LOGOUT</a>
+    <div class="page-header">
+        <h1>{{ 'Blog Symfony' }}</h1>
+        <a href="{{ path('login') }}">{{ 'Login'|trans }}</a>
+        <a href="{{ path('register') }}">{{ 'Register'|trans }}</a>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="jumbotron">
+                <p>
+                    {{ 'Blog'|trans }}
+                </p>
+                <p>
+                    <a class="btn btn-primary btn-lg" href="{{ path('blog') }}" id="front-button">
+                        <i class="fa fa-users" aria-hidden="true"></i> {{ 'Go to blog'|trans }}
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="jumbotron">
+                <p>
+                    {{ 'Admin'|trans }}
+                </p>
+                <p>
+                    <a class="btn btn-primary btn-lg" href="{{ path('admin') }}" id="backend-button">
+                        <i class="fa fa-lock" aria-hidden="true"></i> {{ 'Go to admin'|trans }}
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
+
+{% block footer %}{% endblock %}

@@ -1,15 +1,38 @@
+# config/routes.yaml
+
 controllers:
-    resource:
-        path: ../src/Controller/
-        namespace: App\Controller
-    type: attribute
+  resource:
+    path: ../src/Controller/
+    namespace: App\Controller
+  type: annotation
 
 front:
-    resource: 'routes/front.yaml'
-    prefix: /{_locale}
-    requirements:
-        _locale: '%app_locales%'
+  resource: 'routes/front.yaml'
+  prefix: /{_locale}/
+  requirements:
+    _locale: '%app_locales%'
 
 app_logout:
-    path: /logout
-    methods: GET
+  path: /logout
+  methods: GET
+
+homepage:
+  path: /{_locale}
+  requirements:
+    _locale: '%app_locales%'
+  controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+  defaults:
+    template: /homepage/index.html.twig
+    _locale: '%locale%'
+
+admin:
+  path: /admin
+  controller: App\Controller\Admin\DashboardController::index
+
+newpost:
+  path: /newpost
+  controller: App\Controller\PostController::new
+
+access_denied:
+  path: /access_denied
+  controller: App\Controller\AccessDeniedController::accessDenied

@@ -1,0 +1,13 @@
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="localesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{ app.request.locale }}
+    </button>
+    <div class="dropdown-menu locales" aria-labelledby="localesDropdown">
+        {% for locale in locales() %}
+            <a class="dropdown-item {% if app.request.locale == locale.code %}active{% endif %} d-block" href="{{ path(app.request.get('_route'), app.request.get('_route_params', [])|merge({_locale: locale.code})) }}">
+                {{ locale.name|capitalize }} ({{ locale.code }})
+            </a>
+        {% endfor %}
+    </div>
+</div>
+

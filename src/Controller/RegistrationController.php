@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class RegistrationController extends AbstractController
 {
 
-    #[Route('/register', name: 'app_register')]
+    #[Route('/register', name: 'app_register', locale: '%locale%')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
@@ -36,9 +36,10 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-
+            $this->addFlash('success', 'Registration successful. You can now log in.');
             return $this->redirectToRoute('app_login');
         }
+
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),

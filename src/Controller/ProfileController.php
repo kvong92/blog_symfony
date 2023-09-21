@@ -22,7 +22,7 @@ class ProfileController extends AbstractController
     /**
      * @Route("/profile/change-password", name="profile_change_password")
      */
-    #[Route('/profile_change_pass', name: 'app_profile')]
+    #[Route('/profile_change_pass', name: 'app_profile', locale: 'en')]
     public function changePassword(Request $request): Response
     {
         $user = $this->getUser();
