@@ -6,6 +6,14 @@
 
     <h1>Register</h1>
 
+    {% for key, messages in app.flashes() %}
+        {% for message in messages %}
+            <div class="alert alert-{{ key }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
     {{ form_errors(registrationForm) }}
 
     {{ form_start(registrationForm) }}
