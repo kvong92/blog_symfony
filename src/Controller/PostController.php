@@ -33,6 +33,16 @@ class PostController extends AbstractController
         $time->format('H:i:s \O\n Y-m-d');
         $post->setPublishedAt($time);
 
+<<<<<<< Updated upstream
+=======
+//        $tag = new Tag();
+        //$tag->setName('test');
+        //$post->addTag($tag);
+
+        //dd($tag);
+
+
+>>>>>>> Stashed changes
         if($form->isSubmitted() && $form->isValid()){
                 /** @var UploadedFile $brochureFile */
                 $brochureFile = $form->get('imageFile')->getData();
@@ -61,7 +71,7 @@ class PostController extends AbstractController
                 } else {
                     $post->setImageFile('');
                 }
-
+//                dd($post);
             $entityManager->persist($post);
             $entityManager->flush();
             return $this->redirectToRoute('app_homepage');
