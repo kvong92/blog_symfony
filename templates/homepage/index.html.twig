@@ -2,12 +2,7 @@
 
 {% block body_id 'homepage' %}
 
-{#
-The homepage is a special page which displays neither a header nor a footer.
-This is done with the 'trick' of defining empty Twig blocks without any content.
-#}
 {% block header %}{% endblock %}
-{% block footer %}{% endblock %}
 
 {% block body %}
     <div class="page-header">
@@ -42,3 +37,5 @@ This is done with the 'trick' of defining empty Twig blocks without any content.
         </div>
     </div>
 {% endblock %}
+
+{% block footer %}{% endblock %}
