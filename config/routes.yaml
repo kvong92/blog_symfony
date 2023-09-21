@@ -32,3 +32,7 @@ admin:
 newpost:
   path: /newpost
   controller: App\Controller\PostController::new
+
+access_denied:
+  path: /access_denied
+  controller: App\Controller\AccessDeniedController::accessDenied

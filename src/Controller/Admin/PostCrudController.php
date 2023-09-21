@@ -70,6 +70,36 @@ class PostCrudController extends AbstractCrudController
         ];
     }
 
+    public function createEntity(string $entityFqcn)
+    {
+        $user = $this->getUser(); // Get the currently authenticated user
+
+        if ($user) {
+            $post = new Post();
+            $post->setAuthor($user); // Set the author to the currently authenticated user
+
+            return $post;
+        }
+
+        return parent::createEntity($entityFqcn);
+    }
+
+    public function persistEntity(EntityManagerInterface|\Doctrine\ORM\EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        if ($entityInstance instanceof Post) {
+            parent::persistEntity($entityManager, $entityInstance);
+
+            // Add a flash message after successfully creating the entity
+            $this->addFlash('success', 'Post created successfully.');
+
+            // You can customize the message type ('success', 'info', 'warning', 'error') and content
+        } else {
+            // Handle the case where $entityInstance is not an instance of Post
+            parent::persistEntity($entityManager, $entityInstance);
+        }
+    }
+
+
 //    public function configureFields(string $pageName): iterable
 //    {
 //        return [

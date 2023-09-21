@@ -11,16 +11,22 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use App\Entity\Post;
 use App\Entity\Tag;
 use App\Entity\User;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
 use Symfony\UX\Chartjs\Model\Chart;
 
 class DashboardController extends AbstractDashboardController
 {
-    #[isGranted('ROLE_ADMIN')]
+//    #[isGranted('ROLE_ADMIN')]
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            // Redirect to the access denied page
+//            throw new AccessDeniedException();
+            return $this->redirectToRoute('access_denied');
+        }
 //        return parent::index();
         $routeBuilder = $this->container->get(AdminUrlGenerator::class);
         $url = $routeBuilder->setController(PostCrudController::class)->generateUrl();
