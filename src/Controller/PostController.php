@@ -33,17 +33,7 @@ class PostController extends AbstractController
         $time->format('H:i:s \O\n Y-m-d');
         $post->setPublishedAt($time);
 
-        //$tag = new Tag();
-        //$tag->setName('test');
-        //$post->addTag($tag);
-
-        //dd($tag);
-
-
         if($form->isSubmitted() && $form->isValid()){
-            //dd($post);
-
-            //$form->getData();
                 /** @var UploadedFile $brochureFile */
                 $brochureFile = $form->get('imageFile')->getData();
 
@@ -68,10 +58,11 @@ class PostController extends AbstractController
                     // updates the 'brochureFilename' property to store the PDF file name
                     // instead of its contents
                     $post->setImageFile($newFilename);
+                } else {
+                    $post->setImageFile('');
                 }
 
             $entityManager->persist($post);
-            //$entityManager->persist($tag);
             $entityManager->flush();
             return $this->redirectToRoute('app_homepage');
         }
