@@ -32,7 +32,7 @@ class PostController extends AbstractController
         $time = new \DateTime();
         $time->format('H:i:s \O\n Y-m-d');
         $post->setPublishedAt($time);
-
+      
         if($form->isSubmitted() && $form->isValid()){
                 /** @var UploadedFile $brochureFile */
                 $brochureFile = $form->get('imageFile')->getData();
@@ -58,6 +58,7 @@ class PostController extends AbstractController
                     // updates the 'brochureFilename' property to store the PDF file name
                     // instead of its contents
                     $post->setImageFile($newFilename);
+
                 } else {
                     $post->setImageFile('');
                 }
