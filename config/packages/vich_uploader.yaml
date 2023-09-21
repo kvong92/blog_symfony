@@ -1,0 +1,11 @@
+# config/packages/vich_uploader.yaml
+vich_uploader:
+    db_driver: orm # Or choose another driver based on your setup (orm, mongodb, etc.)
+    mappings:
+        # Configuration for the "post_images" field
+        post_images:
+            uri_prefix: /media/images # The base URL path for uploaded files
+            upload_destination: '%kernel.project_dir%/public/media/images' # The directory where uploaded files will be stored
+            inject_on_load: true
+            delete_on_update: true
+            delete_on_remove: true

@@ -3,15 +3,7 @@
 {% block title %}Blog Symfony{% endblock %}
 
 {% block body %}
-
-    <nav>
-        <h1>Blog Symfony - BLOG FRONT</h1>
-        <a href="/">{{ 'Homepage'|trans }}</a>
-        <a href="{{ path('login') }}">{{ 'Login'|trans }}</a>
-        <a href="{{ path('register') }}">{{ 'Register'|trans }}</a>
-        <a href="{{ path('newpost') }}">{{ 'Add post'|trans }}</a>
-        <a href="/logout">{{ 'Logout'|trans }}</a>
-    </nav>
-
-    </div>
+    <header>
+        {% include 'components/navbar.html.twig' %}
+    </header>
 {% endblock %}
