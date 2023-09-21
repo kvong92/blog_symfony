@@ -37,5 +37,3 @@ homepage:
     defaults:
         template: /homepage/index.html.twig
         _locale: '%locale%'
-
-

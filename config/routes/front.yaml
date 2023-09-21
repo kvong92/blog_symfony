@@ -17,3 +17,7 @@ blog:
 admin:
   path: /admin
   controller: App\Controller\AdminController::index
+
+app_logout:
+  path: /logout
+  methods: GET
