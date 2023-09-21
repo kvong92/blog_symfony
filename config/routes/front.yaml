@@ -17,3 +17,7 @@ blog:
 admin:
   path: /admin
   controller: App\Controller\AdminController::index
+
+newpost:
+    path: /newpost
+    controller: App\Controller\NewPostController::index
