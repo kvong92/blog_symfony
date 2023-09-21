@@ -50,7 +50,6 @@ class Tag
     {
         return $this->Posts;
     }
-
     public function addPost(Post $post): self
     {
         if (!$this->Posts->contains($post)) {

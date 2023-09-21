@@ -31,4 +31,12 @@ class TagRepository extends ServiceEntityRepository
         return $query->getResult();
     }
 
+    public function findAllTags():array
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+    }
 }

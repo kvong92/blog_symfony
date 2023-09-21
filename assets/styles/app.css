@@ -2,6 +2,11 @@ body {
     background-color: lightgray;
 }
 
+.inputFormPost {
+    width: 200px;
+    display: flex;
+    align-items: center;
+
 .flexForm{
     font-size: 25px;
     display: flex;
