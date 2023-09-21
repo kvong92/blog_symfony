@@ -13,21 +13,9 @@
         {% endblock %}
     </head>
     <body>
-    <nav>
-        <a href="/">{{ 'Homepage'|trans }}</a>
-        {#        <a href={{ path('login') }}>{{ 'Login'|trans }}</a>#}
-        {#        <a href=/login>{{ 'Login'|trans }}</a>#}
-        <a href="{{ path('login') }}">{{ 'Login'|trans }}</a>
-
-
-        <a href="{{ path('register') }}">{{ 'Register'|trans }}</a>
-
-        {% include 'multilanguage.html.twig' %}
-
-        <a href="/frontend">{{ 'Frontend'|trans }}</a>
-        <a href="/backend">{{ 'Backend'|trans }}</a>
-    </nav>
         <div class="container body-container">
+            {% include 'multilanguage.html.twig' %}
+
             {% block body %}{% endblock %}
         </div>
     </body>
