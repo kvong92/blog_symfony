@@ -12,12 +12,12 @@
 {#        <a href="{{ path('logout') }}">{{ 'Logout'|trans }}</a>#}
     </nav>
 
-    {% if is_granted('ROLE_ADMIN') %}
-        <p>You have ROLE_ADMIN.</p>
-    {% endif %}
-    {% if app.user %}
-        <p>Hello, {{ app.user.username }}!</p>
-    {% endif %}
+{#    {% if is_granted('ROLE_ADMIN') %}#}
+{#        <p>You have ROLE_ADMIN.</p>#}
+{#    {% endif %}#}
+{#    {% if app.user %}#}
+{#        <p>Hello, {{ app.user.username }}!</p>#}
+{#    {% endif %}#}
 
     </div>
 {% endblock %}
