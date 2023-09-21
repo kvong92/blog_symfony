@@ -1,23 +1,28 @@
 {# templates/login/index.html.twig #}
 {% extends 'base.html.twig' %}
 
-{# ... #}
-
 {% block body %}
+
+    <h1>{{ 'Sign in'|trans }}</h1>
+
     {% if error %}
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <form action="{{ path('app_login') }}" method="post">
-        <label for="username">Email:</label>
+    <form action="{{ path('login') }}" method="post">
+        <label for="username">{{ 'Email'|trans }}</label>
         <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="email@gmail.com">
 
-        <label for="password">Password:</label>
+        <label for="password">{{ 'Password'|trans }}</label>
         <input type="password" id="password" name="_password" placeholder="123456789">
 
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         <input type="hidden" name="_target_path" value="/homepage">
 
-        <button type="submit">login</button>
+        <button type="submit">{{ 'Login'|trans }}</button>
     </form>
+
+    <a href="{{ path('blog') }}">{{ 'Back to homepage'|trans }}</a>
+    <a href="{{ path('register') }}">{{ 'Register'|trans }}</a>
+
 {% endblock %}

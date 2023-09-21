@@ -1,7 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomepageController!{% endblock %}
+{% block body_id 'homepage' %}
+
+{#
+The homepage is a special page which displays neither a header nor a footer.
+This is done with the 'trick' of defining empty Twig blocks without any content.
+#}
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
 
 {% block body %}
-    <a href="/logout">LOGOUT</a>
+    <div class="page-header">
+        <h1>{{ 'Blog Symfony' }}</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="jumbotron">
+                <p>
+                    {{ 'Go to blog'|trans }}
+                </p>
+                <p>
+                    <a class="btn btn-primary btn-lg" href="{{ path('blog') }}" id="front-button">
+                        <i class="fa fa-users" aria-hidden="true"></i> {{ 'Go to front'|trans }}
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="jumbotron">
+                <p>
+                    {{ 'Go to backend'|trans }}
+                </p>
+                <p>
+                    <a class="btn btn-primary btn-lg" href="{{ path('admin') }}" id="backend-button">
+                        <i class="fa fa-lock" aria-hidden="true"></i> {{ 'Go to backend'|trans }}
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
 {% endblock %}
