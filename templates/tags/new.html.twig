@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}new{% endblock %}
+{% block body %}
+    {{ include('tags/_form.html.twig',{
+        form:form,
+        button_label:'new'|trans,
+    },with_context=false) }}
+{% endblock %}

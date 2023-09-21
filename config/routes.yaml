@@ -3,3 +3,13 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+front:
+    resource: 'routes/front.yaml'
+    prefix: /{_locale}
+    requirements:
+        _locale: '%app_locales%'
+
+app_logout:
+    path: /logout
+    methods: GET
