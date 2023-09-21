@@ -33,18 +33,17 @@ class PostController extends AbstractController
         $time->format('H:i:s \O\n Y-m-d');
         $post->setPublishedAt($time);
 
-        $tag = new Tag();
-        $tag->setName('test');
-        $post->addTag($tag);
+        //$tag = new Tag();
+        //$tag->setName('test');
+        //$post->addTag($tag);
+
+        //dd($tag);
 
 
         if($form->isSubmitted() && $form->isValid()){
             //dd($post);
 
             //$form->getData();
-            if ($form->isSubmitted() && $form->isValid()) {
-
-            }
                 /** @var UploadedFile $brochureFile */
                 $brochureFile = $form->get('imageFile')->getData();
 
@@ -72,7 +71,7 @@ class PostController extends AbstractController
                 }
 
             $entityManager->persist($post);
-            $entityManager->persist($tag);
+            //$entityManager->persist($tag);
             $entityManager->flush();
             return $this->redirectToRoute('app_homepage');
         }

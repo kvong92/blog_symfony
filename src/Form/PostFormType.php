@@ -5,7 +5,10 @@ namespace App\Form;
 use App\Entity\Post;
 use App\Entity\Tag;
 use App\Repository\TagRepository;
+use Doctrine\ORM\Mapping\Entity;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,24 +24,10 @@ class PostFormType extends AbstractType
         $this->tagRepository = $tagRepository;
     }
 
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $tags = $this->tagRepository->findAllTags();
-
-        //dd($tags);
-
-//        $choices = [];
-//
-//        foreach($tags as $tag) {
-//            $choices[$tag->getName()] = function ($tag) {
-//                $newtag = new Tag();
-//                $newtag->setName($tag);
-//                return $newtag;
-//            };
-//        }
-
-        //dd($choices);
-
+        //dd($this->tagRepository->findAllTags());
         $builder
             ->add('title')
             ->add('summary')
@@ -57,8 +46,13 @@ class PostFormType extends AbstractType
                         'mimeTypesMessage' => 'Please upload a valid JPG or PNG image',
                     ])
                 ],
+            ])
+            ->add('tags', EntityType::class, [
+                'class' => Tag::class,
+                'choice_label' => 'name', // Display the 'name' property of the Tag entity
+                'multiple' => true, // Allow multiple tags to be selected
+                'expanded' => true, // Render checkboxes/radio buttons for each tag
             ]);
-            //->add('tags');
     }
 
     public function configureOptions(OptionsResolver $resolver): void
