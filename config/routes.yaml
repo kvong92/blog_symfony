@@ -25,6 +25,10 @@ homepage:
     template: /homepage/index.html.twig
     _locale: '%locale%'
 
+admin:
+  path: /admin
+  controller: App\Controller\Admin\DashboardController::index
+
 newpost:
   path: /newpost
   controller: App\Controller\PostController::new

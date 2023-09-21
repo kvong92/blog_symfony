@@ -1,0 +1,10 @@
+<nav>
+    <h1>Blog Symfony - BLOG FRONT</h1>
+    <a href="/">{{ 'Homepage'|trans }}</a>
+    <a href="{{ path('login') }}">{{ 'Login'|trans }}</a>
+    <a href="{{ path('register') }}">{{ 'Register'|trans }}</a>
+
+    {% if app.user %}
+        <a href="/logout">{{ 'Logout'|trans }}</a>
+    {% endif %}
+</nav>
