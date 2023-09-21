@@ -34,7 +34,10 @@ class PostController extends AbstractController
         $post->setPublishedAt($time);
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 //        $tag = new Tag();
         //$tag->setName('test');
         //$post->addTag($tag);
