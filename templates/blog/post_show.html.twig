@@ -1,0 +1,16 @@
+{# templates/admin/post/show_by_slug.html.twig #}
+
+{#{% extends 'admin/layout.html.twig' %}#}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p class="text-muted">Published on {{ post.publishedAt|date('F d, Y') }} by {{ post.author.fullName }}</p>
+
+    <div class="my-4">
+        <img src="{{ asset('media/images/' ~ post.imageFile) }}" alt="{{ post.title }}" class="img-fluid">
+    </div>
+
+    <div class="mt-4">
+        <p>{{ post.content|raw }}</p>
+    </div>
+{% endblock %}

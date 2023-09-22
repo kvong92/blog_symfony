@@ -21,6 +21,28 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
+    public function findAllPosts():array
+    {
+        $em=$this->getEntityManager();
+        $query=$em->createQuery(
+            'SELECT p
+            FROM App\Entity\Post p
+            ');
+        return $query->getResult();
+
+    }
+
+    public function GetAPost(int $id):array
+    {
+        $em=$this->getEntityManager();
+        $query = $em->createQuery(
+            'SELECT p
+            FROM App\Entity\Post p
+            WHERE p.id = :id'
+        )->setParameter('id', $id);
+        return $query->getResult();
+    }
+
 //    /**
 //     * @return Post[] Returns an array of Post objects
 //     */

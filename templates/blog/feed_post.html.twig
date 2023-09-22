@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Feed{% endblock %}
+
+{% block body %}
+
+    <h1>Feed</h1>
+{#    {% for post in posts %}#}
+{#        <div class="blog-post">#}
+{#            <a href="/blog/{{ post.id }}">#}
+{#                <h2 class="mt-0">#}
+{#                    {{ post.title }}#}
+{#                </h2>#}
+{#            </a>#}
+{#            <p class="blog-post-excerpt" style="vertical-align: inherit">#}
+{#                {{ post.summary }}#}
+{#            </p>#}
+{#            <span class="blog-post-metadata">#}
+{#                {% for tags in post.tags %}#}
+{#                    <span class="post-metadata-tags"> {{ tags.name }}</span>#}
+{#                {% endfor %}#}
+{#            </span>#}
+{#            <span class="post-metadata-date">{{ post.publishedAt|date('Y-m-d H:i:s') }}</span>#}
+{#        </div>#}
+
+{#    {% endfor %}#}
+
+
+    {% for post in pagination %}
+        {{ include('blog/_post.html.twig') }}
+    {% else %}
+        <div class="jumbotron">{{ 'post.no_posts_found'|trans }}</div>
+    {% endfor %}
+
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

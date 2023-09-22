@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Vich\UploaderBundle\Mapping\Annotation as Vich; // Use Vich annotations for file uploads
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 
 class PostCrudController extends AbstractCrudController
 {
@@ -49,7 +50,10 @@ class PostCrudController extends AbstractCrudController
             TextareaField::new('summary'),
             TextareaField::new('content'),
             DateTimeField::new('publishedAt'),
-            TextField::new('slug'),
+            SlugField::new('slug') // Add SlugField for generating slugs
+            ->setTargetFieldName('title') // Specify the field to use for slug generation
+            ->hideOnIndex(), // Opti
+//            TextField::new('slug'),
 
             FormField::addPanel('Additional Details'),
             AssociationField::new('tags')
@@ -76,8 +80,13 @@ class PostCrudController extends AbstractCrudController
 
         if ($user) {
             $post = new Post();
-            $post->setAuthor($user); // Set the author to the currently authenticated user
-
+            $post->setAuthor($user);
+            $post->setPublishedAt(new \DateTime());
+            $post->setSlug('');
+            $post->setImageFile('');
+            $post->setSummary('');
+            $post->setContent('');
+            $post->setTitle('');
             return $post;
         }
 
@@ -98,29 +107,4 @@ class PostCrudController extends AbstractCrudController
             parent::persistEntity($entityManager, $entityInstance);
         }
     }
-
-
-//    public function configureFields(string $pageName): iterable
-//    {
-//        return [
-//            TextField::new('title'),
-//            TextareaField::new('summary'),
-//            TextareaField::new('content'),
-//            DateTimeField::new('publishedAt'),
-//            TextField::new('slug'),
-//            AssociationField::new('tags')
-//                ->setFormTypeOptions([
-//                    'by_reference' => false, // To ensure changes are tracked correctly
-//                ])
-//                ->autocomplete()
-//                ->setSortable(true)
-//                ->setHelp('Select tags for the post')
-//                ->onlyOnForms(),
-//            ImageField::new('imageFile')
-//                ->setBasePath('/media/images') // Update to your desired base path
-//                ->setUploadDir('public/media/images') // Use the correct directory path
-//                ->setUploadedFileNamePattern('[year]-[month]-[day]-[uuid].[extension]')
-//                ->onlyOnForms()
-//        ];
-//    }
 }

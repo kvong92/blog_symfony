@@ -14,3 +14,18 @@ blog:
   path: /blog
   controller: App\Controller\BlogController::index
 
+admin:
+  path: /admin
+  controller: App\Controller\AdminController::index
+
+profile:
+  path: /profile
+  controller: App\Controller\ProfileController::profile
+
+show:
+    path: /show/{id}
+    controller: App\Controller\BlogController::index
+
+#newpost:
+#    path: /newpost
+#    controller: App\Controller\NewPostController::index

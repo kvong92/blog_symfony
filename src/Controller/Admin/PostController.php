@@ -62,7 +62,9 @@ class PostController extends AbstractController
         }
 
         if($form->isSubmitted() && $form->isValid()){
-
+            $title = $form->get('title')->getData();
+            $slug = $slugger->slug($title)->lower();
+            $post->setSlug($slug);
             $entityManager->persist($post);
             $entityManager->flush();
             return $this->redirectToRoute('app_homepage');
