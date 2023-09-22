@@ -3,7 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Builder\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ChangePasswordFormType;
@@ -99,6 +103,29 @@ class ProfileController extends AbstractController
         return $this->render('profile/change_password.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    public function profile(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+
+        $form = $this->createFormBuilder($user)
+            ->add('fullname', TextType::class, ['label' => 'edit fullname :' ])
+            ->add('email', TextType::class, ['label' => 'edit email :'])
+            ->add('submit', SubmitType::class)
+            ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($user);
+            $entityManager->flush();
+            return $this->redirectToRoute('profile');
+        }
+
+
+
+        return $this->render('profile/profile.html.twig', ['controller_name' => 'ProfileController','form' => $form->createView()]);
     }
 }
 
