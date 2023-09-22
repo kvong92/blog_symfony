@@ -38,7 +38,7 @@ class Post
     #[ORM\Column(length: 255)]
     private ?string $imageFile = null;
 
-    #[ORM\ManyToMany(targetEntity: Tag::class, mappedBy: 'Posts')]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'Posts')]
     private Collection $tags;
 
     public function __construct()

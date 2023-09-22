@@ -1,0 +1,10 @@
+<nav>
+    <h1>Blog Symfony - BLOG FRONT</h1>
+    <a href="/">{{ 'Homepage'|trans }}</a>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a href="{{ path('app_logout') }}">{{ 'Logout'|trans }}</a>
+    {% else %}
+        <a href="{{ path('login') }}">{{ 'Login'|trans }}</a>
+        <a href="{{ path('register') }}">{{ 'Register'|trans }}</a>
+    {% endif %}
+</nav>

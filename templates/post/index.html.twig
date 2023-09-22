@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PostController!{% endblock %}
+
+{% block body %}
+    <h1>Create new post</h1>
+    {{ form_start(form) }}
+    <div>
+        {{ form_errors(form) }}
+    </div>
+
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.title, { 'attr': {'class': 'inputFormPost'}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.summary, { 'attr': {'class': 'inputFormPost'}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.content, { 'attr': {'class': 'inputFormPost'}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.slug, { 'attr': {'class': 'inputFormPost'}}) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.imageFile, { 'attr': {'class': 'inputFormPost'}}) }}
+        </div>
+
+        <div class="col">
+            {{ form_row(form.tags, { 'attr': {'class': 'inputFormPost'}}) }}
+        </div>
+
+
+
+    </div>
+
+    <button type="submit">Submit</button>
+    {{ form_end(form) }}
+{% endblock %}

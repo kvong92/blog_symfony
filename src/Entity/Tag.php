@@ -18,7 +18,7 @@ class Tag
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToMany(targetEntity: Post::class, inversedBy: 'tags')]
+    #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'tags')]
     private Collection $Posts;
 
     public function __construct()
@@ -50,7 +50,6 @@ class Tag
     {
         return $this->Posts;
     }
-
     public function addPost(Post $post): self
     {
         if (!$this->Posts->contains($post)) {
@@ -65,5 +64,10 @@ class Tag
         $this->Posts->removeElement($post);
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name; // This will display the tag name in association fields
     }
 }

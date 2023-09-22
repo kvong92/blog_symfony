@@ -1,3 +1,4 @@
+import './bootstrap.js';
 import './scss/app.scss';
 
 // loads the Bootstrap jQuery plugins
