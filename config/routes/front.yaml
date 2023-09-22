@@ -18,6 +18,10 @@ admin:
   path: /admin
   controller: App\Controller\AdminController::index
 
+profile:
+  path: /profile
+  controller: App\Controller\ProfileController::profile
+
 
 #newpost:
 #    path: /newpost
