@@ -32,15 +32,11 @@ class BlogController extends AbstractController
     public function index(EntityManagerInterface $em, PaginatorInterface $paginator, Request $request): Response
     {
         $posts = $this->postRepository->findAllPosts();
-
-//        dd($posts);
-
         $pagination = $paginator->paginate(
             $posts, /* query NOT result */
             $request->query->getInt('page', 1), /*page number*/
-            4 /*limit per page*/
+            10 /*limit per page*/
         );
-//        dd($pagination);
 
         // parameters to template
         return $this->render('blog/feed_post.html.twig', ['pagination' => $pagination]);

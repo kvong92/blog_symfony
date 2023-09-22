@@ -24,6 +24,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Vich\UploaderBundle\Mapping\Annotation as Vich; // Use Vich annotations for file uploads
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 
 class PostCrudController extends AbstractCrudController
 {
@@ -49,7 +50,10 @@ class PostCrudController extends AbstractCrudController
             TextareaField::new('summary'),
             TextareaField::new('content'),
             DateTimeField::new('publishedAt'),
-            TextField::new('slug'),
+            SlugField::new('slug') // Add SlugField for generating slugs
+            ->setTargetFieldName('title') // Specify the field to use for slug generation
+            ->hideOnIndex(), // Opti
+//            TextField::new('slug'),
 
             FormField::addPanel('Additional Details'),
             AssociationField::new('tags')
@@ -103,5 +107,4 @@ class PostCrudController extends AbstractCrudController
             parent::persistEntity($entityManager, $entityInstance);
         }
     }
-
 }

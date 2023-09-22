@@ -22,6 +22,9 @@ profile:
   path: /profile
   controller: App\Controller\ProfileController::profile
 
+show:
+    path: /show/{id}
+    controller: App\Controller\BlogController::index
 
 #newpost:
 #    path: /newpost

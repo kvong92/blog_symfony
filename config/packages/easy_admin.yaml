@@ -1,0 +1,14 @@
+easy_admin:
+  entities:
+    Post:
+      class: App\Entity\Post
+      label: 'Posts'
+      list:
+        - title
+        - publishedAt
+        - author
+        - { property: 'slug', label: 'Slug' }
+        - { label: 'Actions', template: 'admin/post/actions.html.twig' } # Add a custom action template
+      actions:
+        - { name: 'showBySlug', label: 'Show Post', icon: 'eye',
+            linkRoute: 'show_post_by_slug', linkParameters: {'slug': 'slug'}, type: 'method', method: 'GET' } # Link to the custom route

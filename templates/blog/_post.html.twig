@@ -1,16 +1,76 @@
-<article class="post">
-    <h2>
-        <a href="{{ path('blog', {slug: post.slug}) }}">
-            {{ post.title }}
-        </a>
-    </h2>
+{#<article class="post">#}
+{#    <div class="post-image">#}
+{#        <a href="{{ path('blog', {slug: post.slug}) }}">#}
+{#            <img src="{{ asset('media/images/' ~ post.imageFile) }}" alt="{{ post.title }}" />#}
+{#        </a>#}
+{#    <h2>#}
+{#        <a href="{{ path('blog', {slug: post.slug}) }}">#}
+{#            {{ post.title }}#}
+{#        </a>#}
+{#    </h2>#}
 
-    <p class="post-metadata">
-        <span class="metadata"><i class="fa fa-calendar"></i> {{ post.publishedAt|format_datetime('long', 'medium', '', 'UTC') }}</span>
-        <span class="metadata"><i class="fa fa-user"></i> {{ post.author.fullName }}</span>
-    </p>
+{#    <p class="post-metadata">#}
+{#        <span class="metadata"><i class="fa fa-calendar"></i> {{ post.publishedAt|format_datetime('long', 'medium', '', 'UTC') }}</span>#}
+{#        <span class="metadata"><i class="fa fa-user"></i> {{ post.author.fullName }}</span>#}
+{#    </p>#}
 
-    <p>{{ post.summary }}</p>
+{#    <p>{{ post.summary }}</p>#}
 
-    {{ include('blog/_post_tags.html.twig') }}
-</article>
+{#    {{ include('blog/_post_tags.html.twig') }}#}
+{#    </div>#}
+{#</article>#}
+
+{#<div class="card mb-3">#}
+{#    <div class="row no-gutters">#}
+{#        <div class="col-md-3">#}
+{#            <a href="{{ path('blog', {slug: post.slug}) }}">#}
+{#                <img src="{{ asset('media/images/' ~ post.imageFile) }}" class="card-img" alt="{{ post.title }}">#}
+{#            </a>#}
+{#        </div>#}
+{#        <div class="col-md-4">#}
+{#            <div class="card-body">#}
+{#                <h5 class="card-title">#}
+{#                    <a href="{{ path('blog', {slug: post.slug}) }}">#}
+{#                        {{ post.title }}#}
+{#                    </a>#}
+{#                </h5>#}
+{#                <p class="card-text post-metadata">#}
+{#                    <span class="metadata"><i class="fa fa-calendar"></i> {{ post.publishedAt|format_datetime('long', 'medium', '', 'UTC') }}</span>#}
+{#                    <span class="metadata"><i class="fa fa-user"></i> {{ post.author.fullName }}</span>#}
+{#                </p>#}
+{#                <p class="card-text">{{ post.summary }}</p>#}
+{#                {{ include('blog/_post_tags.html.twig') }}#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+
+
+<div class="d-flex justify-content-center align-items-center">
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-3">
+                <a href="{{ path('blog', {slug: post.slug}) }}">
+                    <img src="{{ asset('media/images/' ~ post.imageFile) }}" class="card-img" alt="{{ post.title }}">
+                </a>
+            </div>
+            <div class="col-md-4">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a href="{{ path('blog', {slug: post.slug}) }}">
+                            {{ post.title }}
+                        </a>
+                    </h5>
+                    <p class="card-text post-metadata">
+                        <span class="metadata"><i class="fa fa-calendar"></i> {{ post.publishedAt|format_datetime('long', 'medium', '', 'UTC') }}</span>
+                        <span class="metadata"><i class="fa fa-user"></i> {{ post.author.fullName }}</span>
+                    </p>
+                    <p class="card-text">{{ post.summary }}</p>
+                    {{ include('blog/_post_tags.html.twig') }}
+                    <a href="{{ path('show', {id: post.id}) }}">Lire la suite</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
