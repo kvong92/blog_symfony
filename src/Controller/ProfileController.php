@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\ChangePasswordFormType;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,86 +15,27 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 class ProfileController extends AbstractController
 {
+    private $entityManager;
 
-    private $doctrine;
-
-    // Injectez le service Doctrine dans le constructeur du contrôleur
-    public function __construct(ManagerRegistry $doctrine)
+    public function __construct(ManagerRegistry $registry)
     {
-        $this->doctrine = $doctrine;
+        $this->entityManager = $registry->getManager();
     }
-    /**
-     * @Route("/profile/change-password", name="profile_change_password")
-     */
-    /*#[Route('/profile_change_pass', name: 'app_profile', locale: 'en')]
-    public function changePassword(Request $request): Response
+    #[Route('/profile_change_pass', name: 'app_profile', locale: 'en')]
+    public function changePassword(Request $request, UserPasswordHasherInterface $encoder): Response
     {
         $user = $this->getUser();
 
-
         $form = $this->createForm(ChangePasswordFormType::class);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            // Vérifiez si le mot de passe actuel est correct
-            if (password_verify($data['currentPassword'], $user->getPassword())) {
-                if ($data['newPassword'===$data['newPassword2']]) {
-                    // Encodez et mettez à jour le nouveau mot de passe
-                    $newPassword = password_hash($data['newPassword'], PASSWORD_DEFAULT);
-                    $user->setPassword($newPassword);
+            $user->setPassword($encoder->hashPassword($user, $form->get('password')->getData()));
 
-                    $entityManager = $this->getDoctrine()->getManager();
-                    $entityManager->flush();
+            //$this->getManager()->flush();
+            $this->entityManager->flush();
 
-                    $this->addFlash('success', 'Votre mot de passe a été changé avec succès.');
-                    return $this->redirectToRoute('app_homepage');
-                }
-            } else {
-                $this->addFlash('error', 'Le mot de passe actuel est incorrect.');
-            }
-        }
-
-        return $this->render('profile/change_password.html.twig', [
-            'form' => $form->createView(),
-        ]);
-
-    }*/
-
-    #[Route('/profile_change_pass', name: 'app_profile', locale: 'en')]
-    public function updatePassword(Request $request, TokenStorageInterface $tokenStorage)
-    {
-        $form = $this->createForm(ChangePasswordFormType::class);
-
-
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Récupération des données du formulaire
-            $formData = $form->getData();
-
-            // Vérification du mot de passe actuel
-            $user = $this->getUser();
-
-            //$userActuel = $tokenStorage->getToken()->getUser();
-            //$userId = $userActuel->getId();
-            /*if (!password_verify($formData['current_password'], $user->getPassword())) {
-                // Mot de passe incorrect, afficher une erreur
-                $this->addFlash('error', 'Mot de passe incorrect.');
-                return $this->redirectToRoute('app_profile');
-            }*/
-
-
-            // Mise à jour du mot de passe
-            $newPassword = password_hash($formData['newPassword'], PASSWORD_DEFAULT);
-            $user->setPassword($newPassword);
-
-            // Enregistrement des modifications
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->flush();
-
-            // Affichage d'un message de succès
-            $this->addFlash('success', 'Password modifié avec succès.');
             return $this->redirectToRoute('app_homepage');
-
         }
 
         return $this->render('profile/change_password.html.twig', [
@@ -101,4 +43,6 @@ class ProfileController extends AbstractController
         ]);
     }
 }
+
+
 
