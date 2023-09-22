@@ -36,3 +36,7 @@ newpost:
 access_denied:
   path: /access_denied
   controller: App\Controller\AccessDeniedController::accessDenied
+
+profile:
+    path: /profile
+    controller: App\Controller\ProfileController::profile

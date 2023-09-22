@@ -61,7 +61,7 @@ class DashboardController extends AbstractDashboardController
 
             // you can use any type of menu item, except submenus
             ->addMenuItems([
-                MenuItem::linkToRoute('My Profile', 'fa fa-id-card', '...', ['...' => '...']),
+                MenuItem::linkToRoute('My Profile', 'fa fa-id-card', 'profile'),
 //                MenuItem::linkToLogout('Logout', 'fa fa-sign-out'),
             ]);
     }
