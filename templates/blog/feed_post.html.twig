@@ -17,7 +17,7 @@
             </p>
             <span class="blog-post-metadata">
                 {% for tags in post.tags %}
-                    <span class="post-metadata-tags"> #{{ tags.name }}</span>
+                    <span class="post-metadata-tags"> {{ tags.name }}</span>
                 {% endfor %}
             </span>
             <span class="post-metadata-date">{{ post.publishedAt|date('Y-m-d H:i:s') }}</span>

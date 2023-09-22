@@ -11,14 +11,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
 use App\Entity\Post;
 use App\Entity\Tag;
 use App\Entity\User;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\UX\Chartjs\Builder\ChartBuilderInterface;
-use Symfony\UX\Chartjs\Model\Chart;
 
 class DashboardController extends AbstractDashboardController
 {
-//    #[isGranted('ROLE_ADMIN')]
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
@@ -43,8 +38,31 @@ class DashboardController extends AbstractDashboardController
     {
 //        yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linktoRoute('Back to the blog', 'fas fa-home', 'blog');
+        yield MenuItem::section('Dashboard Menu', 'fa fa-wrench');
         yield MenuItem::linkToCrud('Post', 'fas fa-newspaper', Post::class);
         yield MenuItem::linkToCrud('Tag', 'fas fa-tag', Tag::class);
-        // yield MenuItem::linkToCrud('The Label', 'icon class', EntityClass::class);
+        yield MenuItem::linkToCrud('Users', 'fa fa-user', User::class);
+    }
+
+    public function configureUserMenu(UserInterface|\Symfony\Component\Security\Core\User\UserInterface $user): \EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu
+    {
+        // Usually it's better to call the parent method because that gives you a
+        // user menu with some menu items already created ("sign out", "exit impersonation", etc.)
+        // if you prefer to create the user menu from scratch, use: return UserMenu::new()->...
+        return parent::configureUserMenu($user)
+            // use the given $user object to get the user name
+            ->setName($user->getFullName())
+            // use this method if you don't want to display the name of the user
+            ->displayUserName(false)
+            // use this method if you don't want to display the user image
+            ->displayUserAvatar(false)
+            // you can also pass an email address to use gravatar's service
+            ->setGravatarEmail($user->getEmail())
+
+            // you can use any type of menu item, except submenus
+            ->addMenuItems([
+                MenuItem::linkToRoute('My Profile', 'fa fa-id-card', '...', ['...' => '...']),
+//                MenuItem::linkToLogout('Logout', 'fa fa-sign-out'),
+            ]);
     }
 }
