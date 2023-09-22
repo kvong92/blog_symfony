@@ -51,7 +51,6 @@ class PostCrudController extends AbstractCrudController
             DateTimeField::new('publishedAt'),
             TextField::new('slug'),
 
-
             FormField::addPanel('Additional Details'),
             AssociationField::new('tags')
                 ->setFormTypeOptions([

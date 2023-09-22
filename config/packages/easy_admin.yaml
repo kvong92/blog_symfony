@@ -1,6 +1,0 @@
-easy_admin:
-  entities:
-    User:  # Replace with the actual entity name
-      class: App\Entity\User
-      search:
-        fields: ['user.id', 'user.fullname']
