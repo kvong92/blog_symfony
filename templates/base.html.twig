@@ -14,7 +14,16 @@
     </head>
     <body>
         <div class="container body-container">
-            {% include 'multilanguage.html.twig' %}
+
+            {% include '/components/multilanguage.html.twig' %}
+            {% for key, messages in app.flashes() %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ key }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
 
             {% block body %}{% endblock %}
         </div>

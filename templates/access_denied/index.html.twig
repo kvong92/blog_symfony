@@ -1,0 +1,17 @@
+{# templates/access_denied/index.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Access Denied</title>
+</head>
+<body>
+<h1>{{ 'You do not have access to the admin panel.'|trans }}</h1>
+<p>{{ 'Redirecting to the blog page in 3 sec ...'|trans }}</p>
+<script>
+    setTimeout(function() {
+        window.location.href = '{{ path('blog') }}';
+    }, 3000); // Redirect after 3 seconds (adjust as needed)
+</script>
+</body>
+</html>

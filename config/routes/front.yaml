@@ -1,6 +1,6 @@
-front_homepage:
-  path: /
-  controller: App\Controller\HomepageController::index
+#front_homepage:
+#  path: /
+#  controller: App\Controller\HomepageController::index
 
 login:
   path: /login
